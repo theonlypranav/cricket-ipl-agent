@@ -63,6 +63,15 @@ Use:
 
 Fit confidence is high, medium, or low and reflects evidence quality. Scarcity adjustment is valid only when few credible fallbacks remain. Show sensitivity when the answer changes under different weights.
 
+## Operational Bid Rules
+
+- If budget is missing, do not provide numeric bid prices.
+- Unless overridden, calculate `reserve = 35% x starting credits`.
+- Calculate `available spend = remaining credits - reserve`.
+- Divide available spend across unresolved priority roles to create role envelopes.
+- Pass when the next bid breaches reserve, exceeds its role envelope without scarcity justification, or removes the only credible fallback for another open role.
+- When budget data is available, return target, stretch, pass, and the trigger for passing.
+
 ## Required Output
 
 Return:
@@ -83,3 +92,10 @@ Return:
 - Inspect `Players.xlsx` before relying on its sheets or columns; its schema is not assumed.
 - Do not invent prices, availability, injuries, roles, salaries, current-season facts, or keeper status.
 - Separate observed metrics, derived metrics, assumptions, and inference.
+
+## Response Discipline
+
+- Default to 250-400 words unless the user requests a full audit or detailed methodology.
+- Put the decision first, followed by one compact evidence table.
+- Do not repeat source descriptions, formulas, or policy already stated in the prompt.
+- Ask only one or two targeted questions when missing information could change the decision.
